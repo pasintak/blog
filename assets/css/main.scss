@@ -1,0 +1,176 @@
+@charset "utf-8";
+
+// 커스텀 변수 및 설정
+$primary-color: #3498db; // 메인 컬러
+$link-color: $primary-color;
+$link-color-hover: darken($link-color, 15%);
+$masthead-link-color: $primary-color;
+$masthead-link-color-hover: darken($masthead-link-color, 15%);
+$footer-background-color: #f8f9fa;
+$muted-text-color: #6c757d;
+$border-color: #e9ecef;
+$code-background-color: #f7f7f9;
+$code-background-color-dark: #272822;
+$base-font-size: 16px;
+
+// 코드 블록 스타일
+$code-block-text-color: #f8f9fa;
+$code-block-background-color: #2c3e50;
+$code-block-border-color: #34495e;
+
+// 블록 인용문 스타일
+$blockquote-text-color: #6c757d;
+$blockquote-border-color: $primary-color;
+
+// 버튼 스타일
+$button-color: $primary-color;
+$button-hover-color: darken($button-color, 15%);
+
+// 내비게이션 메뉴 스타일
+$nav-background-color: #f8f9fa;
+$nav-text-color: #212529;
+
+// 사이드바 스타일
+$sidebar-background-color: #f8f9fa;
+$sidebar-text-color: #212529;
+
+// 카테고리 및 태그 스타일
+$category-color: #6c5ce7;
+$tag-color: #00b894;
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
+@import "minimal-mistakes";
+
+// 커스텀 추가 스타일
+
+// 코드 블록 스타일 커스터마이징
+pre.highlight {
+  background-color: $code-block-background-color;
+  border: 1px solid $code-block-border-color;
+  border-radius: 4px;
+  padding: 1em;
+  position: relative;
+  margin: 1.5em 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  
+  code {
+    color: $code-block-text-color;
+    background-color: transparent;
+  }
+}
+
+// 링크 스타일 개선
+a {
+  text-decoration: none;
+  color: $link-color;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: $link-color-hover;
+    text-decoration: underline;
+  }
+}
+
+// 인라인 코드 스타일
+code.highlighter-rouge {
+  background-color: $code-background-color;
+  color: #e74c3c;
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+}
+
+// 블록 인용문 스타일
+blockquote {
+  border-left: 4px solid $blockquote-border-color;
+  background-color: #f8f9fa;
+  margin: 1.5em 0;
+  padding: 1em;
+  font-style: italic;
+  color: $blockquote-text-color;
+  border-radius: 0 4px 4px 0;
+}
+
+// 헤더 스타일
+h1, h2, h3, h4, h5, h6 {
+  color: darken($primary-color, 10%);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+// 태그 스타일
+.tag-list {
+  display: inline-block;
+  
+  a {
+    display: inline-block;
+    background-color: $tag-color;
+    color: white;
+    padding: 0.2em 0.6em;
+    margin: 0.2em;
+    border-radius: 3px;
+    font-size: 0.8em;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: darken($tag-color, 10%);
+      text-decoration: none;
+    }
+  }
+}
+
+// 카테고리 스타일
+.category-list {
+  display: inline-block;
+  
+  a {
+    display: inline-block;
+    background-color: $category-color;
+    color: white;
+    padding: 0.2em 0.6em;
+    margin: 0.2em;
+    border-radius: 3px;
+    font-size: 0.8em;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: darken($category-color, 10%);
+      text-decoration: none;
+    }
+  }
+}
+
+// 테이블 스타일 개선
+table {
+  margin-bottom: 1em;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid $border-color;
+  
+  th {
+    background-color: lighten($primary-color, 40%);
+    border: 1px solid $border-color;
+    padding: 0.5em;
+  }
+  
+  td {
+    border: 1px solid $border-color;
+    padding: 0.5em;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+}
+
+// 위키링크 스타일 (일반 링크로 대체되었을 때의 스타일)
+.wiki-link {
+  color: $primary-color;
+  border-bottom: 1px dashed $primary-color;
+  
+  &:hover {
+    color: $link-color-hover;
+    border-bottom: 1px solid $link-color-hover;
+    text-decoration: none;
+  }
+} 

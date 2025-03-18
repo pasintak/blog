@@ -5,4 +5,34 @@
 <script src="{{ '/assets/js/copy-code-button.js' | relative_url }}"></script>
 
 <!-- 복사 버튼 스타일 -->
-<link rel="stylesheet" href="{{ '/assets/css/copy-code-button.css' | relative_url }}"> 
+<link rel="stylesheet" href="{{ '/assets/css/copy-code-button.css' | relative_url }}">
+
+<!-- start custom head snippets -->
+
+<!-- insert favicons -->
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/blog/assets/images/site.webmanifest">
+<link rel="mask-icon" href="/blog/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- 커스텀 스타일 -->
+<style>
+  /* 마크다운 링크 스타일 (위키링크를 대체) */
+  .page__content a {
+    color: #3498db;
+    transition: color 0.3s ease;
+    border-bottom: 1px dashed #3498db;
+    text-decoration: none;
+  }
+  
+  .page__content a:hover {
+    color: #2074a7;
+    border-bottom: 1px solid #2074a7;
+    text-decoration: none;
+  }
+</style>
+
+<!-- end custom head snippets --> 
