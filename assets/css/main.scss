@@ -222,15 +222,14 @@ table {
   }
 }
 
-// 위키 스타일 링크 (기존 [[...]] 형태)
-.page__content p:contains("[[") {
-  a {
-    color: $link-color;
-    border-bottom: 1px dashed $link-color;
-    
-    &:hover {
-      color: $link-color-hover;
-      border-bottom: 1px solid $link-color-hover;
-    }
+// 위키 스타일 링크
+.wiki-style-link {
+  font-weight: 500 !important;
+  border-bottom: 1px dashed $primary-color !important;
+  
+  &:hover {
+    color: $link-color-hover !important;
+    border-bottom: 1px solid $link-color-hover !important;
+    text-decoration: none !important;
   }
 } 
