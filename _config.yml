@@ -16,6 +16,9 @@ url: "https://pasintak.github.io"
 baseurl: "/blog"
 repository: "pasintak/blog"
 
+# 빌드 설정
+future: true   # 미래 날짜 글 보여주기
+
 # 검색 설정 활성화
 search: true
 search_full_content: true
@@ -37,6 +40,10 @@ wikilinks:
   auto_link_prefix: ""
   auto_link_suffix: ""
 
+# 페이지 포함 설정
+include:
+  - _pages
+
 # 기본 레이아웃 설정
 defaults:
   # _posts
@@ -50,4 +57,11 @@ defaults:
       comments: true
       share: true
       related: true
-      show_date: true 
+      show_date: true
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: true 
