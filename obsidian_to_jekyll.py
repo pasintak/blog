@@ -68,14 +68,18 @@ def convert_wiki_links(content, file_mapping):
     def replace_wiki_link(match):
         orig_name = match.group(1)
         if orig_name in file_mapping:
-            return f"[[{orig_name}]]"  # 원본 링크 유지
+            jekyll_name = file_mapping[orig_name]
+            # 원본 링크 텍스트를 유지하고, Jekyll이 인식할 수 있는 형태로 링크 변환
+            return f"[[{orig_name}|{jekyll_name}]]"
         return match.group(0)
     
-    # 임베딩 위키링크 ![[파일명]] 유지
+    # 임베딩 위키링크 ![[파일명]] 변환
     def replace_embed_link(match):
         orig_name = match.group(1)
         if orig_name in file_mapping:
-            return f"![[{orig_name}]]"  # 원본 임베딩 링크 유지
+            jekyll_name = file_mapping[orig_name]
+            # 원본 임베딩 링크 텍스트를 유지하고, Jekyll이 인식할 수 있는 형태로 링크 변환
+            return f"![[{orig_name}|{jekyll_name}]]"
         return match.group(0)
     
     # 위키링크 변환

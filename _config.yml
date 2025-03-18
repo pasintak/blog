@@ -40,6 +40,8 @@ wikilinks:
   auto_links: true
   auto_link_prefix: ""
   auto_link_suffix: ""
+  wiki_open_link_text: true
+  use_extended_syntax: true
 
 # 페이지 포함 설정
 include:
