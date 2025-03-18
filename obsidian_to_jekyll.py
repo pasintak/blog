@@ -64,18 +64,18 @@ def create_jekyll_front_matter(title, date, categories=None, tags=None):
 
 def convert_wiki_links(content, file_mapping):
     """위키링크를 Jekyll 호환 형식으로 변환"""
-    # 일반 위키링크 [[파일명]] -> [[jekyll-파일명]]
+    # 원본 링크를 유지하면서 Jekyll 형식도 추가
     def replace_wiki_link(match):
         orig_name = match.group(1)
         if orig_name in file_mapping:
-            return f"[[{file_mapping[orig_name]}]]"
+            return f"[[{orig_name}]]"  # 원본 링크 유지
         return match.group(0)
     
-    # 임베딩 위키링크 ![[파일명]] -> ![[jekyll-파일명]]
+    # 임베딩 위키링크 ![[파일명]] 유지
     def replace_embed_link(match):
         orig_name = match.group(1)
         if orig_name in file_mapping:
-            return f"![[{file_mapping[orig_name]}]]"
+            return f"![[{orig_name}]]"  # 원본 임베딩 링크 유지
         return match.group(0)
     
     # 위키링크 변환

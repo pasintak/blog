@@ -1,0 +1,37 @@
+/* 코드 블록 컨테이너 스타일 */
+pre.highlight {
+  position: relative;
+  overflow: visible;
+  padding-top: 2.5em;
+}
+
+/* 복사 버튼 스타일 */
+.copy-code-button {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  padding: 0.3em 0.6em;
+  font-size: 0.8em;
+  color: #767676;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-code-button:hover {
+  color: #212529;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.copy-code-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* 아이콘 스타일 */
+.copy-code-button i {
+  margin-right: 0.2em;
+} 

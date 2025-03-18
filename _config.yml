@@ -26,8 +26,9 @@ search_full_content: true
 # 위키링크 설정
 wikilinks:
   enabled: true
-  prefix: /
-  suffix: .html
+  prefix: /blog/
+  suffix: /
+  base_url: /blog/
   exclude:
     - _posts
     - _pages
@@ -43,6 +44,14 @@ wikilinks:
 # 페이지 포함 설정
 include:
   - _pages
+
+# 추가 스크립트와 스타일
+head_scripts:
+  - https://kit.fontawesome.com/4eee35f757.js  # Font Awesome
+  - /blog/assets/js/copy-code-button.js
+
+extra_css:
+  - /blog/assets/css/copy-code-button.css
 
 # 기본 레이아웃 설정
 defaults:
