@@ -1,5 +1,3 @@
-<!-- start custom head snippets -->
-
 <!-- 복사 버튼을 위한 Font Awesome -->
 <script src="https://kit.fontawesome.com/4eee35f757.js" crossorigin="anonymous"></script>
 
@@ -9,10 +7,7 @@
 <!-- 복사 버튼 스타일 -->
 <link rel="stylesheet" href="{{ '/assets/css/copy-code-button.css' | relative_url }}">
 
-<!-- 구글 폰트 - Noto Sans KR & JetBrains Mono -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<!-- start custom head snippets -->
 
 <!-- insert favicons -->
 <link rel="apple-touch-icon" sizes="180x180" href="/blog/assets/images/apple-touch-icon.png">
@@ -23,62 +18,20 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 
-<!-- 위키링크를 일반 링크로 변환하는 스크립트 -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 위키링크 변환 함수
-  function convertWikiLinks() {
-    // 내용에서 [[텍스트]] 형태의 위키링크를 찾음
-    const contentElement = document.querySelector('.page__content');
-    if (!contentElement) return;
-    
-    // 모든 텍스트를 한번에 처리하는 방식으로 변경
-    const content = contentElement.innerHTML;
-    if (!content.includes('[[')) return; // 위키링크가 없으면 처리 중단
-    
-    // 정규식으로 위키링크 찾기
-    const processedContent = content.replace(/\[\[(.*?)\]\]/g, function(match, linkText) {
-      // 띄어쓰기를 하이픈으로 변환하고 특수문자 제거
-      const linkUrl = linkText.toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^\w\-]/g, '');
-      
-      // 마크다운 링크 형식으로 변환
-      return `<a href="/blog/2025-03-19-${linkUrl}/" class="wiki-style-link">${linkText}</a>`;
-    });
-    
-    // 새 내용으로 교체
-    contentElement.innerHTML = processedContent;
-  }
-  
-  // 위키링크 변환 실행
-  setTimeout(convertWikiLinks, 100); // 약간의 지연을 두어 다른 스크립트와의 충돌 방지
-});
-</script>
-
 <!-- 커스텀 스타일 -->
 <style>
   /* 마크다운 링크 스타일 (위키링크를 대체) */
   .page__content a {
     color: #3498db;
     transition: color 0.3s ease;
+    border-bottom: 1px dashed #3498db;
     text-decoration: none;
   }
   
   .page__content a:hover {
     color: #2074a7;
-    text-decoration: none;
-  }
-  
-  /* 위키 스타일 링크에 대한 특별한 스타일 */
-  .wiki-style-link {
-    font-weight: 500;
-    border-bottom: 1px dashed #3498db;
-    padding-bottom: 1px;
-  }
-  
-  .wiki-style-link:hover {
     border-bottom: 1px solid #2074a7;
+    text-decoration: none;
   }
 </style>
 
