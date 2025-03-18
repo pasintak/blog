@@ -117,16 +117,12 @@ a {
     text-decoration: none;
   }
   
-  // 위키 스타일 링크를 인식하기 위한 스타일
-  &:has(code) {
-    border-bottom: none;
+  // 코드 내부 링크 스타일
+  code {
+    color: $link-color;
+    background-color: rgba($link-color, 0.1);
     
-    code {
-      color: $link-color;
-      background-color: rgba($link-color, 0.1);
-    }
-    
-    &:hover code {
+    &:hover {
       background-color: rgba($link-color, 0.2);
     }
   }
