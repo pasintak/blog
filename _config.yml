@@ -25,6 +25,17 @@ wikilinks:
   enabled: true
   prefix: /
   suffix: .html
+  exclude:
+    - _posts
+    - _pages
+    - _layouts
+    - _includes
+    - _config.yml
+    - Gemfile
+    - Gemfile.lock
+  auto_links: true
+  auto_link_prefix: ""
+  auto_link_suffix: ""
 
 # 기본 레이아웃 설정
 defaults:
