@@ -1,0 +1,42 @@
+remote_theme: "mmistakes/minimal-mistakes@4.26.2"
+plugins:
+  - jekyll-include-cache
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+  - jekyll-wikilinks
+
+# 사이트 설정
+title: "개발 블로그"
+description: "개발 기록용 블로그"
+name: "pasintak"
+url: "https://pasintak.github.io"
+baseurl: ""
+repository: "pasintak/pasintak"
+
+# 검색 설정 활성화
+search: true
+search_full_content: true
+
+# 위키링크 설정
+wikilinks:
+  enabled: true
+  prefix: /
+  suffix: .html
+
+# 기본 레이아웃 설정
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      show_date: true 
