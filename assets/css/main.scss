@@ -1,6 +1,13 @@
 @charset "utf-8";
 
+// 폰트 설정
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
 // 커스텀 변수 및 설정
+$sans-serif: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+$monospace: 'JetBrains Mono', 'D2Coding', SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
 $primary-color: #3498db; // 메인 컬러
 $link-color: $primary-color;
 $link-color-hover: darken($link-color, 15%);
@@ -43,6 +50,23 @@ $tag-color: #00b894;
 
 // 커스텀 추가 스타일
 
+// 기본 폰트 설정
+html {
+  font-size: $base-font-size;
+  
+  @media (min-width: 768px) {
+    font-size: $base-font-size * 1.125;
+  }
+}
+
+body {
+  font-family: $sans-serif;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
 // 코드 블록 스타일 커스터마이징
 pre.highlight {
   background-color: $code-block-background-color;
@@ -56,7 +80,15 @@ pre.highlight {
   code {
     color: $code-block-text-color;
     background-color: transparent;
+    font-family: $monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
   }
+}
+
+// 모든 코드 글꼴 설정
+code {
+  font-family: $monospace;
 }
 
 // 링크 스타일 개선
@@ -71,12 +103,42 @@ a {
   }
 }
 
+// 콘텐츠 내 링크 스타일 강화 (위키링크 관련 수정)
+.page__content a {
+  color: $link-color;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgba($link-color, 0.3);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: darken($link-color, 15%);
+    border-bottom: 1px solid $link-color;
+    text-decoration: none;
+  }
+  
+  // 위키 스타일 링크를 인식하기 위한 스타일
+  &:has(code) {
+    border-bottom: none;
+    
+    code {
+      color: $link-color;
+      background-color: rgba($link-color, 0.1);
+    }
+    
+    &:hover code {
+      background-color: rgba($link-color, 0.2);
+    }
+  }
+}
+
 // 인라인 코드 스타일
 code.highlighter-rouge {
   background-color: $code-background-color;
   color: #e74c3c;
   border-radius: 3px;
   padding: 0.2em 0.4em;
+  font-size: 0.85em;
 }
 
 // 블록 인용문 스타일
@@ -96,6 +158,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 1.5em;
   margin-bottom: 0.5em;
   font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 // 태그 스타일
@@ -163,14 +226,15 @@ table {
   }
 }
 
-// 위키링크 스타일 (일반 링크로 대체되었을 때의 스타일)
-.wiki-link {
-  color: $primary-color;
-  border-bottom: 1px dashed $primary-color;
-  
-  &:hover {
-    color: $link-color-hover;
-    border-bottom: 1px solid $link-color-hover;
-    text-decoration: none;
+// 위키 스타일 링크 (기존 [[...]] 형태)
+.page__content p:contains("[[") {
+  a {
+    color: $link-color;
+    border-bottom: 1px dashed $link-color;
+    
+    &:hover {
+      color: $link-color-hover;
+      border-bottom: 1px solid $link-color-hover;
+    }
   }
 } 

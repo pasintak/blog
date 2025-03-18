@@ -1,3 +1,5 @@
+<!-- start custom head snippets -->
+
 <!-- 복사 버튼을 위한 Font Awesome -->
 <script src="https://kit.fontawesome.com/4eee35f757.js" crossorigin="anonymous"></script>
 
@@ -7,7 +9,10 @@
 <!-- 복사 버튼 스타일 -->
 <link rel="stylesheet" href="{{ '/assets/css/copy-code-button.css' | relative_url }}">
 
-<!-- start custom head snippets -->
+<!-- 구글 폰트 - Noto Sans KR & JetBrains Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <!-- insert favicons -->
 <link rel="apple-touch-icon" sizes="180x180" href="/blog/assets/images/apple-touch-icon.png">
@@ -18,20 +23,116 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 
+<!-- 위키링크를 일반 링크로 변환하는 스크립트 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 위키링크 변환 함수
+  function convertWikiLinks() {
+    // 내용에서 [[텍스트]] 형태의 위키링크를 찾음
+    const contentElement = document.querySelector('.page__content');
+    if (!contentElement) return;
+    
+    // 텍스트 노드만 처리하기 위한 함수
+    function processTextNode(textNode) {
+      const text = textNode.nodeValue;
+      // 위키링크 패턴 [[내용]]
+      const wikiLinkPattern = /\[\[(.*?)\]\]/g;
+      
+      // 위키링크가 있는지 확인
+      if (!wikiLinkPattern.test(text)) return;
+      
+      // 위키링크를 일반 링크로 변환
+      const fragment = document.createDocumentFragment();
+      let lastIndex = 0;
+      let match;
+      
+      wikiLinkPattern.lastIndex = 0; // 인덱스 초기화
+      
+      while ((match = wikiLinkPattern.exec(text)) !== null) {
+        // 위키링크 앞의 텍스트를 추가
+        if (match.index > lastIndex) {
+          fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
+        }
+        
+        // 위키링크 내용 추출
+        const linkText = match[1];
+        // 띄어쓰기를 하이픈으로 변환하고 특수문자 제거
+        const linkUrl = linkText.toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w\-]/g, '');
+        
+        // 새 링크 엘리먼트 생성
+        const linkElement = document.createElement('a');
+        linkElement.href = `/blog/2025-03-19-${linkUrl}/`;  // 링크 URL 생성
+        linkElement.textContent = linkText;  // 원래 텍스트 유지
+        linkElement.className = 'wiki-style-link';  // 스타일링을 위한 클래스 추가
+        
+        fragment.appendChild(linkElement);
+        
+        lastIndex = match.index + match[0].length;
+      }
+      
+      // 남은 텍스트 추가
+      if (lastIndex < text.length) {
+        fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+      }
+      
+      // 원래 노드를 생성한 fragment로 교체
+      textNode.parentNode.replaceChild(fragment, textNode);
+    }
+    
+    // 모든 텍스트 노드를 재귀적으로 처리
+    function walkDOM(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        processTextNode(node);
+      } else if (node.nodeType === Node.ELEMENT_NODE && 
+                 node.nodeName !== 'SCRIPT' && 
+                 node.nodeName !== 'STYLE' && 
+                 node.nodeName !== 'PRE' && 
+                 node.nodeName !== 'CODE') {
+        for (let i = 0; i < node.childNodes.length; i++) {
+          // DOM이 수정되면 childNodes가 변경될 수 있으므로 인덱스 조정
+          const childNode = node.childNodes[i];
+          walkDOM(childNode);
+          // DOM 변경으로 인해 자식 노드 수가 변경되었는지 확인
+          if (node.childNodes.length !== i + 1) {
+            i--; // 변경되었다면 인덱스 조정
+          }
+        }
+      }
+    }
+    
+    walkDOM(contentElement);
+  }
+  
+  // 페이지 로드 시 위키링크 변환 실행
+  convertWikiLinks();
+});
+</script>
+
 <!-- 커스텀 스타일 -->
 <style>
   /* 마크다운 링크 스타일 (위키링크를 대체) */
   .page__content a {
     color: #3498db;
     transition: color 0.3s ease;
-    border-bottom: 1px dashed #3498db;
     text-decoration: none;
   }
   
   .page__content a:hover {
     color: #2074a7;
-    border-bottom: 1px solid #2074a7;
     text-decoration: none;
+  }
+  
+  /* 위키 스타일 링크에 대한 특별한 스타일 */
+  .wiki-style-link {
+    font-weight: 500;
+    border-bottom: 1px dashed #3498db;
+    padding-bottom: 1px;
+  }
+  
+  .wiki-style-link:hover {
+    border-bottom: 1px solid #2074a7;
   }
 </style>
 

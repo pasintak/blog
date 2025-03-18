@@ -67,27 +67,85 @@ def convert_wiki_links(content, file_mapping):
     # 위키링크를 일반 마크다운 링크로 변환
     def replace_wiki_link(match):
         orig_name = match.group(1)
+        # 원본 이름을 그대로 사용
+        display_text = orig_name
+        
+        # "|" 문자가 있는 경우 표시 텍스트와 링크 분리
+        if "|" in orig_name:
+            parts = orig_name.split("|", 1)
+            display_text = parts[0].strip()
+            link_target = parts[1].strip()
+            
+            # 매핑된 링크가 있으면 사용, 없으면 그대로 사용
+            if link_target in file_mapping:
+                jekyll_name = file_mapping[link_target]
+                return f"[{display_text}](/blog/{jekyll_name}/)"
+            else:
+                # 하이픈으로 변환하고 일반 파일명 형식으로 변환
+                target_url = link_target.replace(' ', '-').lower()
+                return f"[{display_text}](/blog/{target_url}/)"
+        
+        # 일반 위키링크 처리
         if orig_name in file_mapping:
             jekyll_name = file_mapping[orig_name]
-            # 위키링크를 마크다운 링크로 변환
-            return f"[{orig_name}](/blog/{jekyll_name}/)"
-        return match.group(0)
+            return f"[{display_text}](/blog/{jekyll_name}/)"
+        else:
+            # 매핑이 없는 경우, 원본 텍스트는 유지하고 위키링크를 일반 링크로 변환
+            # 공백을 하이픈으로 변환하여 URL에 적합하게 처리
+            target_url = orig_name.replace(' ', '-').lower()
+            # 중복된 하이픈 제거
+            target_url = re.sub(r'-+', '-', target_url)
+            # 특수 문자 제거
+            target_url = re.sub(r'[^\w\-]', '', target_url)
+            return f"[{display_text}](/blog/2025-03-19-{target_url}/)"
     
     # 임베딩 위키링크를 이미지 링크로 변환
     def replace_embed_link(match):
         orig_name = match.group(1)
+        # 이미지 URL인 경우 그대로 사용
+        if orig_name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp')):
+            return f"![{orig_name}]({orig_name})"
+        
+        # 오브시디언 노트 임베딩인 경우
         if orig_name in file_mapping:
             jekyll_name = file_mapping[orig_name]
-            # 임베딩 위키링크를 마크다운 이미지 링크로 변환
             return f"![{orig_name}](/blog/{jekyll_name}/)"
-        return match.group(0)
+        else:
+            # 매핑이 없는 경우
+            target_url = orig_name.replace(' ', '-').lower()
+            target_url = re.sub(r'-+', '-', target_url)
+            target_url = re.sub(r'[^\w\-]', '', target_url)
+            return f"![{orig_name}](/blog/2025-03-19-{target_url}/)"
     
-    # 위키링크 변환
-    content = re.sub(r'\[\[(.*?)\]\]', replace_wiki_link, content)
-    # 임베딩 위키링크 변환
-    content = re.sub(r'!\[\[(.*?)\]\]', replace_embed_link, content)
+    # 위키링크 변환 (중첩 마크다운 코드 블록 내부는 제외)
+    parts = []
+    start_idx = 0
     
-    return content
+    # 코드 블록 내부의 위키링크는 변환하지 않기 위한 처리
+    code_block_regex = r'```.*?```'
+    code_blocks = list(re.finditer(code_block_regex, content, re.DOTALL))
+    
+    for block in code_blocks:
+        # 코드 블록 앞의 내용 처리
+        before_block = content[start_idx:block.start()]
+        # 위키링크를 변환
+        before_block = re.sub(r'\[\[(.*?)\]\]', replace_wiki_link, before_block)
+        before_block = re.sub(r'!\[\[(.*?)\]\]', replace_embed_link, before_block)
+        parts.append(before_block)
+        
+        # 코드 블록 내용은 그대로 유지
+        parts.append(content[block.start():block.end()])
+        start_idx = block.end()
+    
+    # 마지막 코드 블록 이후 또는 코드 블록이 없는 경우의 내용 처리
+    if start_idx < len(content):
+        last_part = content[start_idx:]
+        last_part = re.sub(r'\[\[(.*?)\]\]', replace_wiki_link, last_part)
+        last_part = re.sub(r'!\[\[(.*?)\]\]', replace_embed_link, last_part)
+        parts.append(last_part)
+    
+    # 모든 부분을 합쳐 최종 내용 반환
+    return ''.join(parts)
 
 def get_file_hash(file_path):
     """파일의 해시값 계산 (변경 감지용)"""
