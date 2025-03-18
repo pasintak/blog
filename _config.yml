@@ -6,7 +6,6 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jemoji
-  - jekyll-wikilinks
 
 # 사이트 설정
 title: "개발 블로그"
@@ -22,26 +21,6 @@ future: true   # 미래 날짜 글 보여주기
 # 검색 설정 활성화
 search: true
 search_full_content: true
-
-# 위키링크 설정
-wikilinks:
-  enabled: true
-  prefix: /blog/
-  suffix: /
-  base_url: /blog/
-  exclude:
-    - _posts
-    - _pages
-    - _layouts
-    - _includes
-    - _config.yml
-    - Gemfile
-    - Gemfile.lock
-  auto_links: true
-  auto_link_prefix: ""
-  auto_link_suffix: ""
-  wiki_open_link_text: true
-  use_extended_syntax: true
 
 # 페이지 포함 설정
 include:
