@@ -6,7 +6,6 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jemoji
-  - jekyll-wikilinks
 
 # 사이트 설정
 title: "개발 블로그"
