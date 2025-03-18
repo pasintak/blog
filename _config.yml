@@ -12,9 +12,9 @@ plugins:
 title: "개발 블로그"
 description: "개발 기록용 블로그"
 name: "pasintak"
-url: "https://pasintak.github.io/pasintak"
-baseurl: "/pasintak"
-repository: "pasintak/pasintak"
+url: "https://pasintak.github.io"
+baseurl: "/blog"
+repository: "pasintak/blog"
 
 # 검색 설정 활성화
 search: true
